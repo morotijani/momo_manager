@@ -1,5 +1,6 @@
 /**
  * MoMo Manager — Mobile-First SPA Engine (iPhone 16 393px Viewport)
+ * Clean uniform typography & subtle flat pastel card surfaces
  */
 (function () {
   const cfg = window.APP_CONFIG || { baseUrl: '', csrfToken: '' };
@@ -60,6 +61,16 @@
       return parts[1].slice(0, 5) + ' · ' + parts[0].slice(5);
     }
     return dt;
+  }
+
+  function brandLogoSvg(size = 22) {
+    return `
+      <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none">
+        <circle cx="6.5" cy="7.5" r="2.3" fill="#F7C818"/>
+        <circle cx="12" cy="7.5" r="2.3" fill="#EA4335"/>
+        <circle cx="17.5" cy="7.5" r="2.3" fill="#1A73E8"/>
+        <path d="M4.5 18v-5l3.8 3.2L12 11.8l3.7 4.4L19.5 13v5" stroke="#202124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`;
   }
 
   function toast(message, isError = false) {
@@ -236,9 +247,9 @@
     if (state.loading) {
       mount.innerHTML = `
         <div class="app-scroll" style="display:grid;place-items:center;">
-          <div style="text-align:center;color:#64748b;">
-            <div style="font-weight:800;font-size:15px;color:#0f172a;margin-bottom:4px;">MoMo Manager</div>
-            <div style="font-size:12px;">Loading secure ledger...</div>
+          <div style="text-align:center;">
+            <div style="font-weight:700;font-size:16px;color:var(--ink-primary);margin-bottom:4px;">MoMo Manager</div>
+            <div style="font-size:13px;color:var(--ink-muted);">Loading workspace...</div>
           </div>
         </div>`;
       return;
@@ -268,13 +279,13 @@
     return `
       ${renderTopbarGuest()}
       <div class="app-scroll">
-        <div class="card" style="margin-top:16px;border-color:#fecaca;background:#fef2f2;">
-          <h3 style="margin:0 0 6px;font-size:15px;color:#991b1b;">MySQL Not Running in XAMPP</h3>
-          <p style="margin:0 0 10px;font-size:12.5px;color:#7f1d1d;line-height:1.45;">
+        <div class="alert-card danger" style="flex-direction:column;align-items:stretch;gap:10px;margin-top:12px;">
+          <div style="font-size:15px;font-weight:700;">MySQL Not Running in XAMPP</div>
+          <div style="font-size:13px;color:var(--ink-secondary);">
             Open <strong>XAMPP Control Panel</strong> and click <strong>Start</strong> next to <strong>MySQL</strong>.
             MoMo Manager will automatically create the database and tables on your next refresh.
-          </p>
-          <div style="font-size:11px;color:#991b1b;background:#fff;padding:8px;border-radius:8px;margin-bottom:12px;">
+          </div>
+          <div class="sub-surface" style="background:#ffffff;font-size:12px;color:var(--pastel-red-ink);">
             ${esc(cfg.dbError)}
           </div>
           <button class="btn btn-primary btn-block" onclick="window.location.reload()">Retry Connection</button>
@@ -286,17 +297,10 @@
     return `
       <header class="app-topbar">
         <div class="brand-cluster">
-          <div class="brand-dots">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="6" cy="8" r="2.5" fill="#FFCB05"/>
-              <circle cx="12" cy="8" r="2.5" fill="#E60000"/>
-              <circle cx="18" cy="8" r="2.5" fill="#60A5FA"/>
-              <path d="M4 18v-5l4 3.5L12 12l4 4.5L20 13v5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <div class="brand-dots">${brandLogoSvg(20)}</div>
           <div>
             <div class="brand-title">MoMo Manager</div>
-            <div class="brand-subtitle">Ghana Multi-Branch Vendor Ledger</div>
+            <div class="brand-subtitle">Multi-Branch Vendor Ledger</div>
           </div>
         </div>
       </header>`;
@@ -308,14 +312,7 @@
     return `
       <header class="app-topbar">
         <div class="brand-cluster">
-          <div class="brand-dots">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <circle cx="6" cy="8" r="2.5" fill="#FFCB05"/>
-              <circle cx="12" cy="8" r="2.5" fill="#E60000"/>
-              <circle cx="18" cy="8" r="2.5" fill="#60A5FA"/>
-              <path d="M4 18v-5l4 3.5L12 12l4 4.5L20 13v5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <div class="brand-dots">${brandLogoSvg(20)}</div>
           <div style="min-width:0;">
             <div class="brand-title">${esc(u.company_name)}</div>
             <div class="brand-subtitle">${esc(u.full_name)} · ${esc(roleTag)}</div>
@@ -323,12 +320,12 @@
         </div>
         <div class="topbar-actions">
           <button class="icon-btn" id="btn-refresh" title="Refresh live balances">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/>
             </svg>
           </button>
           <button class="icon-btn" id="btn-logout" title="Sign out">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
             </svg>
           </button>
@@ -344,17 +341,10 @@
     return `
       <div class="auth-wrap">
         <div class="auth-hero">
-          <div class="auth-logo">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <circle cx="6" cy="7" r="2.5" fill="#FFCB05"/>
-              <circle cx="12" cy="7" r="2.5" fill="#E60000"/>
-              <circle cx="18" cy="7" r="2.5" fill="#60A5FA"/>
-              <path d="M4 18v-5.5l4 3.5L12 11.5l4 4.5L20 12.5V18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h1 style="margin:0;font-size:19px;font-weight:800;">Welcome to MoMo Manager</h1>
-          <p style="margin:4px 0 0;font-size:12px;color:#64748b;">
-            Track Deposits, Transfers, Withdrawals & live SIM float across MTN, Telecel & AirtelTigo.
+          <div class="auth-logo">${brandLogoSvg(28)}</div>
+          <h1 class="auth-headline">Manage every branch<br>with clarity</h1>
+          <p class="auth-subline">
+            Record Deposits, Transfers &amp; Withdrawals across MTN MoMo, Telecel Cash &amp; AirtelTigo.
           </p>
         </div>
 
@@ -385,17 +375,17 @@
 
       ${demos.length ? `
         <div class="demo-box">
-          <div style="font-size:11px;font-weight:800;color:#0f172a;text-transform:uppercase;letter-spacing:0.04em;">
-            1-Tap Demo Switcher · Move Money Enterprise
+          <div style="font-size:13px;font-weight:700;color:var(--ink-primary);">
+            Quick Demo Switcher · Move Money Enterprise
           </div>
-          <div style="font-size:11px;color:#64748b;margin:2px 0 6px;">
-            Tap any role below to test Boss vs. Branch Vendor views (Password: <code>Password@123</code>):
+          <div style="font-size:12px;color:var(--ink-secondary);margin:3px 0 8px;">
+            Tap a role to preview Boss vs. Branch Vendor (Password: <strong>Password@123</strong>)
           </div>
           ${demos.map((d) => `
             <button type="button" class="demo-pill-btn" data-demo-phone="${esc(d.phone)}">
               <div>
-                <div style="font-size:12px;font-weight:700;color:#0f172a;">${esc(d.full_name)}</div>
-                <div style="font-size:10.5px;color:#64748b;">
+                <div style="font-size:13px;font-weight:600;color:var(--ink-primary);">${esc(d.full_name)}</div>
+                <div style="font-size:11.5px;color:var(--ink-muted);">
                   ${d.role === 'OWNER' ? 'Main Boss · All 3 Branches' : esc(d.branch_name || 'Vendor')}
                 </div>
               </div>
@@ -410,7 +400,7 @@
   function renderRegisterForm() {
     return `
       <form id="form-register" class="card">
-        <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:8px;">1. Enterprise & Owner Details</div>
+        <div style="font-size:13.5px;font-weight:700;color:var(--ink-primary);margin-bottom:10px;">1. Enterprise &amp; Owner Details</div>
         <div class="field">
           <label>Registered Company Name *</label>
           <input class="input" name="company_name" placeholder="e.g. Move Money Enterprise" required>
@@ -436,8 +426,8 @@
           </div>
         </div>
 
-        <hr style="border:none;border-top:1px solid #e2e8f0;margin:10px 0;">
-        <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:8px;">2. First Branch & Starting Float (GH₵)</div>
+        <hr style="border:none;border-top:1px solid var(--border-subtle);margin:12px 0;">
+        <div style="font-size:13.5px;font-weight:700;color:var(--ink-primary);margin-bottom:10px;">2. First Branch &amp; Starting Float (GH₵)</div>
         <div class="row-2">
           <div class="field">
             <label>First Branch Name *</label>
@@ -450,19 +440,19 @@
         </div>
         <div class="row-3">
           <div class="field">
-            <label><span class="net-badge MTN">MTN</span> Float</label>
+            <label><span class="net-badge MTN">MTN</span></label>
             <input class="input tabular" type="number" step="0.01" min="0" name="mtn_ecash" value="5000">
           </div>
           <div class="field">
-            <label><span class="net-badge TELECEL">TCEL</span> Float</label>
+            <label><span class="net-badge TELECEL">TCEL</span></label>
             <input class="input tabular" type="number" step="0.01" min="0" name="telecel_ecash" value="2000">
           </div>
           <div class="field">
-            <label><span class="net-badge AT">AT</span> Float</label>
+            <label><span class="net-badge AT">AT</span></label>
             <input class="input tabular" type="number" step="0.01" min="0" name="at_ecash" value="1000">
           </div>
         </div>
-        <button type="submit" class="btn btn-blue btn-block">Create Enterprise & Sign In</button>
+        <button type="submit" class="btn btn-blue btn-block">Create Enterprise &amp; Sign In</button>
       </form>
     `;
   }
@@ -492,21 +482,21 @@
       <div class="hero-card">
         <div class="hero-eyebrow">
           <span>${esc(branch.name)} (${esc(branch.code)})</span>
-          <span class="status-pill ${shiftStatus}" style="font-size:9.5px;">Shift ${shiftStatus}</span>
+          <span class="status-pill ${shiftStatus}">Shift ${shiftStatus}</span>
         </div>
-        <div style="font-size:11px;color:#cbd5e1;margin-top:6px;">Physical Cash in Drawer</div>
+        <div class="hero-caption">Physical Cash in Drawer</div>
         <div class="hero-amount tabular">${money(branch.cash_balance)}</div>
 
         <div class="net-strip">
-          <div class="net-mini-card net-MTN">
+          <div class="net-mini-card">
             <div class="net-mini-title">MTN MoMo</div>
             <div class="net-mini-bal tabular">${shortMoney(netMap.MTN)}</div>
           </div>
-          <div class="net-mini-card net-TELECEL">
+          <div class="net-mini-card">
             <div class="net-mini-title">Telecel</div>
             <div class="net-mini-bal tabular">${shortMoney(netMap.TELECEL)}</div>
           </div>
-          <div class="net-mini-card net-AT">
+          <div class="net-mini-card">
             <div class="net-mini-title">AT Cash</div>
             <div class="net-mini-bal tabular">${shortMoney(netMap.AT)}</div>
           </div>
@@ -515,14 +505,14 @@
 
       ${(d.alerts || []).map((a) => `
         <div class="alert-card warn">
-          <span>⚠️ ${esc(a.label)}</span>
+          <span>${esc(a.label)}</span>
         </div>
       `).join('')}
 
       <div class="tx-launcher">
         <button type="button" class="tx-launch-btn deposit" data-open-tx="DEPOSIT">
           <div class="tx-launch-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M5 21h14"/>
             </svg>
           </div>
@@ -532,7 +522,7 @@
 
         <button type="button" class="tx-launch-btn transfer" data-open-tx="TRANSFER">
           <div class="tx-launch-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
             </svg>
           </div>
@@ -542,7 +532,7 @@
 
         <button type="button" class="tx-launch-btn withdrawal" data-open-tx="WITHDRAWAL">
           <div class="tx-launch-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M12 19V7"/><polyline points="7 12 12 7 17 12"/><path d="M5 21h14"/>
             </svg>
           </div>
@@ -553,10 +543,10 @@
 
       <button type="button" class="sms-banner-btn" data-open-sms="1">
         <div>
-          <strong>📲 Paste Telco Confirmation SMS</strong>
-          <span>Auto-extract ID, network, phone & amount in 1 tap</span>
+          <strong>Paste Telco Confirmation SMS</strong>
+          <span>Auto-fill ID, network, phone &amp; amount in one tap</span>
         </div>
-        <span style="font-size:16px;font-weight:800;">→</span>
+        <span style="font-size:16px;font-weight:700;">→</span>
       </button>
 
       <div class="kpi-grid">
@@ -567,7 +557,7 @@
         </div>
         <div class="kpi-tile">
           <div class="kpi-label">In vs Out Split</div>
-          <div class="kpi-val tabular" style="font-size:13px;">
+          <div class="kpi-val tabular" style="font-size:14px;">
             +${shortMoney(d.today.deposits_volume + d.today.transfers_volume)} / -${shortMoney(d.today.withdrawals_volume)}
           </div>
           <div class="kpi-sub">OTC Fees: ${money(d.today.fees_collected)}</div>
@@ -591,11 +581,11 @@
     return `
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 style="margin:0;font-size:14px;">Daily Shift & Drawer Balancing</h3>
-          <span class="status-pill ${openShift ? 'OPEN' : 'CLOSED'}">${openShift ? 'SHIFT OPEN' : 'NO OPEN SHIFT'}</span>
+          <h3 style="margin:0;font-size:15px;font-weight:700;">Daily Shift &amp; Drawer Balancing</h3>
+          <span class="status-pill ${openShift ? 'OPEN' : 'CLOSED'}">${openShift ? 'Shift Open' : 'Closed'}</span>
         </div>
         ${openShift && branch ? `
-          <div style="font-size:11.5px;color:#475569;margin-bottom:10px;">
+          <div style="font-size:12.5px;color:var(--ink-secondary);margin-bottom:10px;">
             Opened at <strong>${esc(formatTime(openShift.opened_at))}</strong> · Opening Cash: <strong class="tabular">${money(openShift.opening_cash)}</strong>
           </div>
           <div class="kv-row">
@@ -609,11 +599,11 @@
             </div>
           `).join('')}
           <button class="btn btn-primary btn-block" style="margin-top:12px;" data-close-shift="${openShift.id}">
-            Count Cash & Close Shift
+            Count Cash &amp; Close Shift
           </button>
         ` : `
-          <p style="font-size:12px;color:#64748b;margin:0 0 12px;">
-            Start your shift to snapshot current opening Physical Cash and MTN/Telecel/AT SIM float balances.
+          <p style="font-size:12.5px;color:var(--ink-muted);margin:0 0 12px;">
+            Start your shift to snapshot current opening Physical Cash and MTN, Telecel &amp; AT SIM float balances.
           </p>
           <button class="btn btn-blue btn-block" id="btn-open-shift">Start New Shift Now</button>
         `}
@@ -631,19 +621,19 @@
     return `
       <nav class="bottom-nav">
         <button class="nav-tab ${t === 'home' ? 'active' : ''}" data-nav="home">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="4" width="18" height="16" rx="3"/><line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
           <span>Transact</span>
         </button>
         <button class="nav-tab ${t === 'history' ? 'active' : ''}" data-nav="history">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
           </svg>
           <span>History</span>
         </button>
         <button class="nav-tab ${t === 'shift' ? 'active' : ''}" data-nav="shift">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/>
           </svg>
           <span>Shift</span>
@@ -686,15 +676,15 @@
         </div>
 
         <div class="net-strip">
-          <div class="net-mini-card net-MTN">
+          <div class="net-mini-card">
             <div class="net-mini-title">MTN Float</div>
             <div class="net-mini-bal tabular">${shortMoney(s.ecash_by_network.MTN)}</div>
           </div>
-          <div class="net-mini-card net-TELECEL">
+          <div class="net-mini-card">
             <div class="net-mini-title">Telecel Float</div>
             <div class="net-mini-bal tabular">${shortMoney(s.ecash_by_network.TELECEL)}</div>
           </div>
-          <div class="net-mini-card net-AT">
+          <div class="net-mini-card">
             <div class="net-mini-title">AT Float</div>
             <div class="net-mini-bal tabular">${shortMoney(s.ecash_by_network.AT)}</div>
           </div>
@@ -702,21 +692,21 @@
       </div>
 
       ${voids.length > 0 ? `
-        <div class="alert-card danger" style="flex-direction:column;gap:6px;">
-          <div style="font-weight:800;font-size:12px;">
-            🔔 ${voids.length} Pending Void / Correction Request${voids.length === 1 ? '' : 's'}
+        <div class="alert-card danger" style="flex-direction:column;align-items:stretch;gap:8px;">
+          <div style="font-weight:700;font-size:13px;color:var(--pastel-red-ink);">
+            ${voids.length} Pending Void / Correction Request${voids.length === 1 ? '' : 's'}
           </div>
           ${voids.map((v) => `
-            <div style="width:100%;background:#fff;border-radius:10px;padding:8px 10px;color:#0f172a;border:1px solid #fecaca;">
-              <div style="display:flex;justify-content:space-between;font-weight:700;font-size:12px;">
+            <div style="width:100%;background:#ffffff;border-radius:12px;padding:10px 12px;border:1px solid var(--pastel-red-border);">
+              <div style="display:flex;justify-content:space-between;font-weight:700;font-size:13px;">
                 <span>${esc(v.branch_name)} · <span class="net-badge ${esc(v.network)}">${esc(v.network)}</span> ${esc(v.tx_type)}</span>
                 <span class="tabular">${money(v.amount)}</span>
               </div>
-              <div style="font-size:11px;color:#475569;margin:3px 0;">
+              <div style="font-size:12px;color:var(--ink-secondary);margin:4px 0 8px;">
                 By <strong>${esc(v.vendor_name)}</strong>: "${esc(v.void_reason)}"
               </div>
-              <div style="display:flex;gap:6px;margin-top:6px;">
-                <button class="btn btn-danger btn-sm" data-resolve-void="${v.id}" data-decision="APPROVE">Approve & Reverse</button>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-danger btn-sm" data-resolve-void="${v.id}" data-decision="APPROVE">Approve &amp; Reverse</button>
                 <button class="btn btn-outline btn-sm" data-resolve-void="${v.id}" data-decision="REJECT">Reject</button>
                 <button class="btn btn-outline btn-sm" data-inspect-tx="${v.id}">Inspect</button>
               </div>
@@ -727,12 +717,12 @@
 
       ${(d.alerts || []).map((a) => `
         <div class="alert-card warn">
-          <span>⚠️ ${esc(a.label)}</span>
-          <button class="btn btn-outline btn-sm" style="padding:3px 8px;font-size:10.5px;" data-open-float="${a.branch_id}">Top Up</button>
+          <span>${esc(a.label)}</span>
+          <button class="btn btn-outline btn-sm" data-open-float="${a.branch_id}">Top Up</button>
         </div>
       `).join('')}
 
-      <div class="section-head" style="margin-top:6px;">
+      <div class="section-head" style="margin-top:8px;">
         <h2 class="section-title">Today's Enterprise Pulse</h2>
         <button class="btn btn-blue btn-sm" data-open-tx="DEPOSIT">+ Log Txn</button>
       </div>
@@ -745,17 +735,17 @@
         </div>
         <div class="kpi-tile">
           <div class="kpi-label">Deposits (Cash-In)</div>
-          <div class="kpi-val tabular" style="color:var(--tx-deposit);">${money(t.deposits_volume)}</div>
+          <div class="kpi-val tabular cash-plus">${money(t.deposits_volume)}</div>
           <div class="kpi-sub">${t.deposits_count} customer deposits</div>
         </div>
         <div class="kpi-tile">
           <div class="kpi-label">Transfers (To Receiver)</div>
-          <div class="kpi-val tabular" style="color:var(--tx-transfer);">${money(t.transfers_volume)}</div>
+          <div class="kpi-val tabular" style="color:var(--brand-ink);">${money(t.transfers_volume)}</div>
           <div class="kpi-sub">${t.transfers_count} merchant transfers</div>
         </div>
         <div class="kpi-tile">
           <div class="kpi-label">Withdrawals (Cash-Out)</div>
-          <div class="kpi-val tabular" style="color:var(--tx-withdrawal);">${money(t.withdrawals_volume)}</div>
+          <div class="kpi-val tabular cash-minus">${money(t.withdrawals_volume)}</div>
           <div class="kpi-sub">${t.withdrawals_count} cash-out payouts</div>
         </div>
       </div>
@@ -766,12 +756,14 @@
       </div>
       ${(d.branches || []).map((b) => `
         <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
             <div>
-              <div style="font-size:13.5px;font-weight:800;">${esc(b.name)} <span style="color:#64748b;font-weight:600;font-size:11px;">(${esc(b.code)})</span></div>
-              <div style="font-size:11px;color:#64748b;">
-                ${b.open_shift ? `🟢 Shift: ${esc(b.open_shift.vendor_name)}` : '⚪ No active shift'}
-                · Today: <strong class="tabular">${shortMoney(b.today.volume)}</strong> (${b.today.tx_count})
+              <div style="font-size:14.5px;font-weight:700;">
+                ${esc(b.name)} <span style="color:var(--ink-muted);font-weight:500;font-size:12px;">(${esc(b.code)})</span>
+              </div>
+              <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">
+                ${b.open_shift ? `Shift Open: ${esc(b.open_shift.vendor_name)}` : 'Shift Closed'}
+                · Today: <strong class="tabular" style="color:var(--ink-primary);">${shortMoney(b.today.volume)}</strong> (${b.today.tx_count})
               </div>
             </div>
             <button class="btn btn-outline btn-sm" data-open-float="${b.id}">+ Float</button>
@@ -780,11 +772,11 @@
             <span>Physical Drawer Cash</span>
             <strong class="tabular">${money(b.cash_balance)}</strong>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px;">
+          <div class="row-3" style="margin-top:10px;">
             ${(b.wallets || []).map((w) => `
-              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:6px 7px;">
+              <div class="sub-surface">
                 <span class="net-badge ${esc(w.network)}">${esc(w.network)}</span>
-                <div class="tabular" style="font-size:11.5px;font-weight:800;margin-top:4px;">${shortMoney(w.ecash_balance)}</div>
+                <div class="tabular" style="font-size:12.5px;font-weight:700;margin-top:5px;">${shortMoney(w.ecash_balance)}</div>
               </div>
             `).join('')}
           </div>
@@ -796,16 +788,16 @@
         <button class="link-btn" data-go-tab="team">Full Team →</button>
       </div>
       ${(d.vendor_leaderboard || []).length === 0 ? `<div class="card empty-state">No vendors added yet.</div>` : `
-        <div class="card" style="padding:8px 12px;">
+        <div class="card" style="padding:10px 14px;">
           ${(d.vendor_leaderboard || []).map((v, idx) => `
-            <div class="kv-row" style="align-items:center;">
+            <div class="kv-row">
               <div>
-                <div style="font-weight:700;font-size:12.5px;">#${idx + 1} ${esc(v.full_name)}</div>
-                <div style="font-size:10.5px;color:#64748b;">${esc(v.branch_name || 'Unassigned')} · ${v.today_tx_count} txns today</div>
+                <div style="font-weight:600;font-size:13.5px;color:var(--ink-primary);">${idx + 1}. ${esc(v.full_name)}</div>
+                <div style="font-size:11.5px;color:var(--ink-muted);">${esc(v.branch_name || 'Unassigned')} · ${v.today_tx_count} txns today</div>
               </div>
               <div style="text-align:right;">
-                <div class="tabular" style="font-weight:800;font-size:13px;">${money(v.today_volume)}</div>
-                <div class="tabular" style="font-size:10px;color:#64748b;">All-time: ${shortMoney(v.lifetime_volume)}</div>
+                <div class="tabular" style="font-weight:700;font-size:13.5px;color:var(--ink-primary);">${money(v.today_volume)}</div>
+                <div class="tabular" style="font-size:11px;color:var(--ink-muted);">All-time: ${shortMoney(v.lifetime_volume)}</div>
               </div>
             </div>
           `).join('')}
@@ -828,19 +820,19 @@
     const csvHref = apiUrl('/api/transactions', { ...f, export: 'csv' });
 
     return `
-      <div class="card" style="padding:11px;">
+      <div class="card" style="padding:12px;">
         <div style="display:flex;gap:6px;margin-bottom:8px;">
-          <input class="input" id="filter-q" placeholder="Search phone, name, Tx ID..." value="${esc(f.q)}" style="padding:7px 10px;font-size:12.5px;">
-          <button class="btn btn-primary btn-sm" id="btn-run-search">Find</button>
+          <input class="input" id="filter-q" placeholder="Search phone, name, Tx ID..." value="${esc(f.q)}" style="padding:8px 11px;font-size:13px;">
+          <button class="btn btn-primary btn-sm" id="btn-run-search">Search</button>
         </div>
 
         ${showBranchFilter ? `
           <div style="display:flex;gap:6px;margin-bottom:8px;">
-            <select class="select" id="filter-branch" style="padding:7px 9px;font-size:12px;">
+            <select class="select" id="filter-branch" style="padding:8px 10px;font-size:13px;">
               <option value="">All Branches</option>
               ${branches.map((b) => `<option value="${b.id}" ${String(f.branch_id) === String(b.id) ? 'selected' : ''}>${esc(b.name)}</option>`).join('')}
             </select>
-            <a class="btn btn-outline btn-sm" href="${esc(csvHref)}" target="_blank" style="text-decoration:none;white-space:nowrap;">⬇ CSV</a>
+            <a class="btn btn-outline btn-sm" href="${esc(csvHref)}" target="_blank" style="text-decoration:none;white-space:nowrap;">Export CSV</a>
           </div>
         ` : ''}
 
@@ -868,9 +860,9 @@
         </div>
       </div>
 
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#475569;margin:4px 2px 8px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-secondary);margin:4px 2px 8px;">
         <span><strong>${state.txTotals.count}</strong> matching records</span>
-        <span class="tabular">Vol: <strong>${money(state.txTotals.volume)}</strong></span>
+        <span class="tabular">Volume: <strong>${money(state.txTotals.volume)}</strong></span>
       </div>
 
       ${renderTxList(list, showBranchFilter)}
@@ -885,15 +877,17 @@
     return `
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <button class="btn btn-primary" style="flex:1;" id="btn-new-branch">+ Add Branch</button>
-        <button class="btn btn-outline" style="flex:1;" data-open-float="${branches[0] ? branches[0].id : ''}">⚖️ Adjust Float</button>
+        <button class="btn btn-blue" style="flex:1;" data-open-float="${branches[0] ? branches[0].id : ''}">Adjust Float</button>
       </div>
 
       ${branches.map((b) => `
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div>
-              <div style="font-size:14px;font-weight:800;">${esc(b.name)} <span style="font-size:11px;color:#64748b;">(${esc(b.code)})</span></div>
-              <div style="font-size:11px;color:#64748b;">${esc(b.location || 'Ghana')} · Total Capital: <strong class="tabular">${money(b.total_capital)}</strong></div>
+              <div style="font-size:15px;font-weight:700;">${esc(b.name)} <span style="font-size:12px;font-weight:500;color:var(--ink-muted);">(${esc(b.code)})</span></div>
+              <div style="font-size:12px;color:var(--ink-muted);margin-top:2px;">
+                ${esc(b.location || 'Ghana')} · Capital: <strong class="tabular" style="color:var(--ink-primary);">${money(b.total_capital)}</strong>
+              </div>
             </div>
             <div style="display:flex;gap:5px;">
               <button class="btn btn-outline btn-sm" data-edit-branch="${b.id}">Edit SIMs</button>
@@ -912,7 +906,7 @@
             </div>
           `).join('')}
 
-          <div style="margin-top:8px;font-size:11px;color:#475569;">
+          <div style="margin-top:8px;font-size:12px;color:var(--ink-secondary);">
             <strong>Assigned Staff:</strong>
             ${(b.vendors || []).length ? b.vendors.map((v) => esc(v.full_name)).join(', ') : '<em>None assigned yet</em>'}
           </div>
@@ -920,28 +914,28 @@
       `).join('')}
 
       <div class="section-head">
-        <h2 class="section-title">Shift Reconciliations & Shortages</h2>
+        <h2 class="section-title">Shift Reconciliations &amp; Shortages</h2>
       </div>
       ${shifts.length === 0 ? `<div class="card empty-state">No shifts logged yet.</div>` : shifts.slice(0, 10).map(renderShiftCard).join('')}
 
       <div class="section-head">
-        <h2 class="section-title">Recent Float Top-Ups & Sweeps</h2>
+        <h2 class="section-title">Recent Float Top-Ups &amp; Sweeps</h2>
       </div>
       ${adjs.length === 0 ? `<div class="card empty-state">No manual float adjustments yet.</div>` : `
-        <div class="card" style="padding:8px 12px;">
+        <div class="card" style="padding:10px 14px;">
           ${adjs.slice(0, 10).map((a) => `
             <div class="kv-row">
               <div>
-                <div style="font-weight:700;font-size:12px;">
+                <div style="font-weight:600;font-size:13px;color:var(--ink-primary);">
                   ${esc(a.branch_name)} · ${a.bucket === 'CASH' ? 'Physical Cash' : esc(a.wallet_network) + ' E-Cash'}
                 </div>
-                <div style="font-size:10.5px;color:#64748b;">${esc(a.reason)} (${esc(a.actor_name)})</div>
+                <div style="font-size:11.5px;color:var(--ink-muted);">${esc(a.reason)} (${esc(a.actor_name)})</div>
               </div>
               <div style="text-align:right;">
-                <div class="tabular ${a.direction === 'CREDIT' ? 'cash-plus' : 'cash-minus'}" style="font-weight:800;">
+                <div class="tabular ${a.direction === 'CREDIT' ? 'cash-plus' : 'cash-minus'}" style="font-weight:700;">
                   ${a.direction === 'CREDIT' ? '+' : '-'}${money(a.amount)}
                 </div>
-                <div style="font-size:10px;color:#64748b;">${esc(formatTime(a.created_at))}</div>
+                <div style="font-size:11px;color:var(--ink-muted);">${esc(formatTime(a.created_at))}</div>
               </div>
             </div>
           `).join('')}
@@ -961,13 +955,13 @@
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div>
-              <div style="font-size:13.5px;font-weight:800;">
+              <div style="font-size:14.5px;font-weight:700;">
                 ${esc(v.full_name)}
-                ${!v.is_active ? `<span class="status-pill VOIDED">SUSPENDED</span>` : ''}
+                ${!v.is_active ? `<span class="status-pill VOIDED">Suspended</span>` : ''}
               </div>
-              <div style="font-size:11.5px;color:#475569;">
-                📱 ${esc(v.phone)} · <strong>${esc(v.role)}</strong>
-                ${v.branch_name ? ` · 📍 ${esc(v.branch_name)}` : ''}
+              <div style="font-size:12px;color:var(--ink-secondary);margin-top:2px;">
+                ${esc(v.phone)} · <strong>${esc(v.role)}</strong>
+                ${v.branch_name ? ` · ${esc(v.branch_name)}` : ''}
               </div>
             </div>
             ${v.role !== 'OWNER' ? `
@@ -975,20 +969,20 @@
             ` : `<span class="type-badge TRANSFER">BOSS</span>`}
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;background:#f8fafc;padding:8px;border-radius:10px;">
+          <div class="row-3 sub-surface" style="margin-top:10px;">
             <div>
-              <div style="font-size:10px;color:#64748b;">Volume Handled</div>
-              <div class="tabular" style="font-size:12px;font-weight:800;">${shortMoney(v.total_volume)}</div>
+              <div style="font-size:11px;color:var(--ink-muted);">Volume Handled</div>
+              <div class="tabular" style="font-size:13px;font-weight:700;margin-top:2px;">${shortMoney(v.total_volume)}</div>
             </div>
             <div>
-              <div style="font-size:10px;color:#64748b;">Txns (D/T/W)</div>
-              <div class="tabular" style="font-size:12px;font-weight:800;">
-                ${v.total_tx_count} <span style="font-weight:500;font-size:10px;">(${v.deposit_count}/${v.transfer_count}/${v.withdrawal_count})</span>
+              <div style="font-size:11px;color:var(--ink-muted);">Txns (D/T/W)</div>
+              <div class="tabular" style="font-size:13px;font-weight:700;margin-top:2px;">
+                ${v.total_tx_count} <span style="font-weight:400;font-size:11px;color:var(--ink-muted);">(${v.deposit_count}/${v.transfer_count}/${v.withdrawal_count})</span>
               </div>
             </div>
             <div>
-              <div style="font-size:10px;color:#64748b;">Void Flags</div>
-              <div class="tabular" style="font-size:12px;font-weight:800;color:${v.void_flags > 0 ? '#dc2626' : '#059669'};">${v.void_flags}</div>
+              <div style="font-size:11px;color:var(--ink-muted);">Void Flags</div>
+              <div class="tabular ${v.void_flags > 0 ? 'text-danger' : 'cash-plus'}" style="font-size:13px;font-weight:700;margin-top:2px;">${v.void_flags}</div>
             </div>
           </div>
         </div>
@@ -1003,25 +997,25 @@
       <nav class="bottom-nav">
         <button class="nav-tab ${t === 'home' ? 'active' : ''}" data-nav="home">
           ${pendingVoids > 0 ? `<span class="nav-badge">${pendingVoids}</span>` : ''}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
           <span>Overview</span>
         </button>
         <button class="nav-tab ${t === 'activity' ? 'active' : ''}" data-nav="activity">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
           </svg>
           <span>Activity</span>
         </button>
         <button class="nav-tab ${t === 'branches' ? 'active' : ''}" data-nav="branches">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
           </svg>
           <span>Branches</span>
         </button>
         <button class="nav-tab ${t === 'team' ? 'active' : ''}" data-nav="team">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
           <span>Team</span>
@@ -1052,7 +1046,7 @@
             </div>
             <div class="tx-phone">${esc(tx.customer_phone)}${tx.customer_name ? ' · ' + esc(tx.customer_name) : ''}</div>
             <div class="tx-meta">
-              ${showBranch ? `📍 ${esc(tx.branch_name)} (${esc(tx.vendor_name)}) · ` : ''}
+              ${showBranch ? `${esc(tx.branch_name)} (${esc(tx.vendor_name)}) · ` : ''}
               ID: ${esc(tx.telco_tx_id)} · ${esc(formatTime(tx.created_at))}
             </div>
           </div>
@@ -1071,16 +1065,16 @@
     return `
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:12.5px;font-weight:800;">${esc(s.branch_name)} · ${esc(s.vendor_name)}</div>
+          <div style="font-size:13.5px;font-weight:700;">${esc(s.branch_name)} · ${esc(s.vendor_name)}</div>
           <span class="status-pill ${esc(s.status)}">${esc(s.status)}</span>
         </div>
-        <div style="font-size:11px;color:#64748b;margin-top:3px;">
+        <div style="font-size:12px;color:var(--ink-muted);margin-top:3px;">
           Opened: ${esc(formatTime(s.opened_at))} ${s.closed_at ? ' · Closed: ' + esc(formatTime(s.closed_at)) : ''}
         </div>
         ${s.status !== 'OPEN' ? `
-          <div style="margin-top:6px;font-size:11.5px;display:flex;justify-content:space-between;">
-            <span>Cash Variance: <strong class="tabular ${s.cash_variance < 0 ? 'cash-minus' : 'cash-plus'}">${money(s.cash_variance)}</strong></span>
-            <span>Float Variance: <strong class="tabular ${s.ecash_variance < 0 ? 'cash-minus' : 'cash-plus'}">${money(s.ecash_variance)}</strong></span>
+          <div style="margin-top:8px;font-size:12px;display:flex;justify-content:space-between;">
+            <span>Cash Variance: <strong class="tabular ${s.cash_variance < 0 ? 'text-danger' : 'cash-plus'}">${money(s.cash_variance)}</strong></span>
+            <span>Float Variance: <strong class="tabular ${s.ecash_variance < 0 ? 'text-danger' : 'cash-plus'}">${money(s.ecash_variance)}</strong></span>
           </div>
         ` : ''}
       </div>`;
@@ -1166,7 +1160,7 @@
     return `
       <div class="seg-control">
         <button type="button" class="seg-btn ${mode === 'form' ? 'active' : ''}" data-tx-tab="form">Quick Form</button>
-        <button type="button" class="seg-btn ${mode === 'sms' ? 'active' : ''}" data-tx-tab="sms">📲 Paste Telco SMS</button>
+        <button type="button" class="seg-btn ${mode === 'sms' ? 'active' : ''}" data-tx-tab="sms">Paste Telco SMS</button>
       </div>
 
       ${mode === 'sms' ? `
@@ -1174,8 +1168,8 @@
           <label>Paste Confirmation SMS from MTN, Telecel, or AT</label>
           <textarea class="textarea" id="sms-raw-box" rows="4" placeholder="Paste the SMS received after completing the transaction on your phone...">${esc(data.raw_sms || '')}</textarea>
         </div>
-        <div style="font-size:10.5px;color:#64748b;margin-bottom:6px;">Quick test samples (1 tap):</div>
-        <div class="chip-scroll" style="margin-bottom:10px;">
+        <div style="font-size:11.5px;color:var(--ink-muted);margin-bottom:6px;">Quick test samples (one tap):</div>
+        <div class="chip-scroll" style="margin-bottom:12px;">
           <button type="button" class="chip" data-sample-sms="MTN_DEPOSIT">Sample MTN Deposit</button>
           <button type="button" class="chip" data-sample-sms="TELECEL_TRANSFER">Sample Telecel Send</button>
           <button type="button" class="chip" data-sample-sms="AT_WITHDRAWAL">Sample AT Cash-Out</button>
@@ -1184,8 +1178,8 @@
       ` : `
         <form id="form-record-tx">
           ${data.entry_mode === 'SMS_PARSED' ? `
-            <div class="alert-card" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:7px 10px;">
-              <span>✓ Auto-filled from Telco SMS. Verify & tap Save.</span>
+            <div class="alert-card success">
+              <span>Auto-filled from Telco SMS. Verify &amp; tap Confirm.</span>
             </div>
           ` : ''}
 
@@ -1204,7 +1198,7 @@
             <button type="button" class="seg-btn ${txType === 'WITHDRAWAL' ? 'active' : ''}" data-pick-type="WITHDRAWAL">Withdrawal</button>
           </div>
 
-          <div style="font-size:11.5px;font-weight:600;color:#475569;margin-bottom:5px;">
+          <div style="font-size:12px;font-weight:600;color:var(--ink-secondary);margin-bottom:5px;">
             ${txType === 'TRANSFER' ? 'Merchant SIM Wallet Used' : 'Mobile Network'}
           </div>
           <div class="net-selector">
@@ -1319,14 +1313,14 @@
     if (!tx) return '<div class="empty-state">Transaction details unavailable.</div>';
 
     return `
-      <div style="text-align:center;padding-bottom:10px;border-bottom:1px solid #e2e8f0;margin-bottom:10px;">
-        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:6px;">
+      <div style="text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border-subtle);margin-bottom:10px;">
+        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:8px;">
           <span class="net-badge ${esc(tx.network)}">${esc(netLabel(tx.network))}</span>
           <span class="type-badge ${esc(tx.tx_type)}">${esc(tx.tx_type)}</span>
           <span class="status-pill ${esc(tx.status)}">${esc(tx.status.replace('_', ' '))}</span>
         </div>
-        <div class="tabular" style="font-size:26px;font-weight:800;">${money(tx.amount)}</div>
-        ${tx.fee_charged > 0 ? `<div style="font-size:11.5px;color:#475569;">+ OTC Service Fee: ${money(tx.fee_charged)}</div>` : ''}
+        <div class="tabular" style="font-size:26px;font-weight:700;letter-spacing:-0.02em;">${money(tx.amount)}</div>
+        ${tx.fee_charged > 0 ? `<div style="font-size:12px;color:var(--ink-muted);">+ OTC Service Fee: ${money(tx.fee_charged)}</div>` : ''}
       </div>
 
       <div class="kv-row"><span>Branch</span><strong>${esc(tx.branch_name)}</strong></div>
@@ -1343,8 +1337,8 @@
       <div class="kv-row"><span>Date &amp; Time</span><strong>${esc(tx.created_at)}</strong></div>
 
       ${tx.raw_sms ? `
-        <div style="margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:8px 10px;font-size:11px;color:#334155;">
-          <strong>Attached SMS Proof:</strong><br>${esc(tx.raw_sms)}
+        <div class="sub-surface" style="margin-top:10px;font-size:12px;color:var(--ink-secondary);">
+          <strong style="color:var(--ink-primary);">Attached SMS Proof:</strong><br>${esc(tx.raw_sms)}
         </div>
       ` : ''}
 
@@ -1356,13 +1350,13 @@
       ` : ''}
 
       ${tx.status === 'COMPLETED' ? `
-        <form id="form-void-request" style="margin-top:12px;padding-top:10px;border-top:1px solid #e2e8f0;">
+        <form id="form-void-request" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-subtle);">
           <input type="hidden" name="tx_id" value="${tx.id}">
           <div class="field">
             <label>Made a mistake? Request Correction / Void (Immutable Audit)</label>
             <input class="input" name="reason" placeholder="Explain error clearly for Boss approval..." required>
           </div>
-          <button type="submit" class="btn btn-outline btn-block" style="color:#dc2626;border-color:#fca5a5;">
+          <button type="submit" class="btn btn-danger btn-block">
             Flag for Boss Void / Reversal
           </button>
         </form>
@@ -1378,7 +1372,8 @@
   }
 
   function renderShiftCloseSheet(data) {
-    const branch = (state.dashboard && state.dashboard.branches && state.dashboard.branches[0]) || { cash_balance: 0, wallets: [] };
+    const branches = (state.dashboard && state.dashboard.branches) || [];
+    const branch = branches.find((b) => Number(b.id) === Number(data.branch_id)) || branches[0] || { cash_balance: 0, wallets: [] };
     const wMap = { MTN: 0, TELECEL: 0, AT: 0 };
     (branch.wallets || []).forEach((w) => {
       wMap[w.network] = w.ecash_balance;
@@ -1387,7 +1382,7 @@
     return `
       <form id="form-close-shift">
         <input type="hidden" name="shift_id" value="${esc(data.shift_id)}">
-        <p style="margin:0 0 10px;font-size:12px;color:#475569;">
+        <p style="margin:0 0 12px;font-size:12.5px;color:var(--ink-secondary);">
           Count your physical cash drawer and check each Merchant SIM balance. Any shortage or overage is automatically calculated.
         </p>
         <div class="field">
@@ -1899,7 +1894,6 @@
 
     if (!state.sheet) return;
 
-    // Transaction create sheet handlers
     document.querySelectorAll('[data-tx-tab]').forEach((b) => {
       b.addEventListener('click', () => {
         const draft = snapshotTxFormDraft();
@@ -1976,7 +1970,6 @@
       });
     }
 
-    // Live phone prefix network auto-detection + live impact bar update
     const phoneInput = document.getElementById('tx-phone');
     if (phoneInput) {
       phoneInput.addEventListener('input', () => {
@@ -2042,7 +2035,6 @@
       });
     }
 
-    // Void request form inside inspect sheet
     const voidReqForm = document.getElementById('form-void-request');
     if (voidReqForm) {
       voidReqForm.addEventListener('submit', async (e) => {
@@ -2061,7 +2053,6 @@
       });
     }
 
-    // Boss resolve void inside inspect sheet
     document.querySelectorAll('#sheet-host [data-resolve-void]').forEach((btn) => {
       btn.addEventListener('click', async () => {
         const txId = btn.getAttribute('data-resolve-void');
@@ -2078,7 +2069,6 @@
       });
     });
 
-    // Close Shift form
     const closeShiftForm = document.getElementById('form-close-shift');
     if (closeShiftForm) {
       closeShiftForm.addEventListener('submit', async (e) => {
@@ -2096,7 +2086,6 @@
       });
     }
 
-    // Branch New
     const newBranchForm = document.getElementById('form-new-branch');
     if (newBranchForm) {
       newBranchForm.addEventListener('submit', async (e) => {
@@ -2114,7 +2103,6 @@
       });
     }
 
-    // Branch Edit
     const editBranchForm = document.getElementById('form-edit-branch');
     if (editBranchForm) {
       editBranchForm.addEventListener('submit', async (e) => {
@@ -2141,7 +2129,6 @@
       });
     }
 
-    // Float adjust bucket toggle & submit
     const bucketSel = document.getElementById('float-bucket');
     const netWrap = document.getElementById('float-net-wrap');
     if (bucketSel && netWrap) {
@@ -2167,7 +2154,6 @@
       });
     }
 
-    // Vendor New & Edit
     const newVendorForm = document.getElementById('form-new-vendor');
     if (newVendorForm) {
       newVendorForm.addEventListener('submit', async (e) => {

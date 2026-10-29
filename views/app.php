@@ -12,19 +12,22 @@ $assetBase = rtrim($baseUrl, '/');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0F172A">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>MoMo Manager — Enterprise &amp; Branch Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="manifest" href="<?= htmlspecialchars($assetBase . '/public/manifest.json', ENT_QUOTES) ?>">
-  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars($assetBase . '/public/assets/icons/icon.svg', ENT_QUOTES) ?>">
-  <link rel="stylesheet" href="<?= htmlspecialchars($assetBase . '/public/assets/css/app.css', ENT_QUOTES) ?>">
+  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars($assetBase . '/public/assets/icons/icon.svg?v=3', ENT_QUOTES) ?>">
+  <link rel="stylesheet" href="<?= htmlspecialchars($assetBase . '/public/assets/css/app.css?v=3', ENT_QUOTES) ?>">
 </head>
 <body>
   <div class="studio-stage">
     <div class="device-shell">
       <div class="phone-screen">
-        <!-- iPhone 16 Top Status Bar & Dynamic Island (Desktop/Laptop Preview) -->
+        <!-- Minimal iPhone 16 Status Bar (Visible on Laptop/Desktop Preview) -->
         <div class="ios-status-bar">
           <span id="ios-clock" class="tabular">09:41</span>
           <div class="dynamic-island" aria-hidden="true"></div>
@@ -60,7 +63,7 @@ $assetBase = rtrim($baseUrl, '/');
         'dbError' => $dbError,
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
   </script>
-  <script src="<?= htmlspecialchars($assetBase . '/public/assets/js/sms-parser.js', ENT_QUOTES) ?>"></script>
-  <script src="<?= htmlspecialchars($assetBase . '/public/assets/js/app.js', ENT_QUOTES) ?>"></script>
+  <script src="<?= htmlspecialchars($assetBase . '/public/assets/js/sms-parser.js?v=3', ENT_QUOTES) ?>"></script>
+  <script src="<?= htmlspecialchars($assetBase . '/public/assets/js/app.js?v=3', ENT_QUOTES) ?>"></script>
 </body>
 </html>
