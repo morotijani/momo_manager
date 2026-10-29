@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct web access to private application directories and dotfiles
+    RewriteRule ^(app|config|database|storage|tests|views)(/|$) - [F,L]
+    RewriteRule ^(\.env|\.git|composer\.(json|lock|phar)|README\.md|LICENSE) - [F,L]
+
+    # Serve existing static assets under public/ directly if requested via /public/... or rewrite /assets/... -> public/assets/...
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Route everything else through index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    DirectoryIndex index.php
+</IfModule>
+
+Options -Indexes

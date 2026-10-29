@@ -1,0 +1,18 @@
+{
+  "name": "MoMo Manager — Enterprise & Branch Ledger",
+  "short_name": "MoMo Manager",
+  "description": "Multi-branch Mobile Money vendor & float management for MTN MoMo, Telecel Cash, and AirtelTigo Cash.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#090D16",
+  "theme_color": "#0F172A",
+  "icons": [
+    {
+      "src": "public/assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
